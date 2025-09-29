@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Builds
+**/.next/
+**/out/
+**/dist/
+**/build/
+
+# Hardhat
+**/artifacts/
+**/cache/
+**/deployments/**/solcInputs/
+
+# OS
+.DS_Store
+
+

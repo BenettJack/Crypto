@@ -1,0 +1,74 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Auto-deduce BASE_PATH: if repository is <user>.github.io, keep empty; otherwise /<repo>
+      REPO: ${{ github.event.repository.name }}
+      OWNER: ${{ github.repository_owner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ./package-lock.json
+
+      - name: Compute BASE_PATH
+        id: base
+        run: |
+          OWNER_LOWER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          REPO_LOWER=$(echo "$REPO" | tr '[:upper:]' '[:lower:]')
+          if [ "$REPO_LOWER" = "$OWNER_LOWER.github.io" ]; then
+            echo "BASE_PATH=" >> $GITHUB_ENV
+          else
+            echo "BASE_PATH=/$REPO" >> $GITHUB_ENV
+          fi
+          echo "Using BASE_PATH='$BASE_PATH'"
+
+      - name: Install deps
+        run: npm ci
+        working-directory: ./
+
+      - name: Build
+        run: npm run build
+        env:
+          BASE_PATH: ${{ env.BASE_PATH }}
+        working-directory: ./
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+

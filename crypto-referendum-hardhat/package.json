@@ -1,0 +1,36 @@
+{
+  "name": "crypto-referendum-hardhat",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "rimraf ./fhevmTemp ./artifacts ./cache ./types",
+    "compile": "hardhat compile",
+    "typechain": "hardhat typechain",
+    "deploy:sepolia": "hardhat deploy --network sepolia",
+    "verify:sepolia": "echo 'Run: npx hardhat verify --network sepolia <address>'",
+    "export:frontend": "node ./scripts/export-frontend.mjs"
+  },
+  "devDependencies": {
+    "@fhevm/hardhat-plugin": "^0.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.0",
+    "@nomicfoundation/hardhat-verify": "^2.1.0",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "ethers": "^6.15.0",
+    "hardhat": "^2.26.0",
+    "hardhat-deploy": "^0.11.45",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@fhevm/solidity": "^0.8.0",
+    "@zama-fhe/oracle-solidity": "^0.1.0"
+  }
+}
+
+

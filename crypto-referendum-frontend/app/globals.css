@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
+           text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl 
+           transform hover:scale-105 transition-all duration-200 disabled:opacity-50 
+           disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-xl 
+           border border-gray-200 shadow-sm hover:shadow-md transform hover:scale-105 
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed 
+           disabled:transform-none;
+  }
+  
+  .btn-warning {
+    @apply bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 
+           text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl 
+           transform hover:scale-105 transition-all duration-200 disabled:opacity-50 
+           disabled:cursor-not-allowed disabled:transform-none;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 transition-all 
+           duration-300 border border-gray-100;
+  }
+  
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-card hover:shadow-card-hover 
+           p-6 transition-all duration-300 border border-gray-100;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 
+           focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none
+           bg-white placeholder-gray-400;
+  }
+  
+  .status-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-active {
+    @apply status-badge bg-green-100 text-green-800;
+  }
+  
+  .status-ended {
+    @apply status-badge bg-gray-100 text-gray-800;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+}
+
